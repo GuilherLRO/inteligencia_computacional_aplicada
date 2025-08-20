@@ -29,11 +29,13 @@ def plot_regression_diagnostics(y_train, y_train_pred, y_test, y_test_pred, titl
     corr_train, _ = pearsonr(y_train, y_train_pred)
     corr_test, _ = pearsonr(y_test, y_test_pred)
 
-    print(f"Coeficiente de correlação de Pearson (Treino): {corr_train:.4f}")
-    print(f"Coeficiente de correlação de Pearson (Teste): {corr_test:.4f}")
+    r2_train = float(r2_score(y_train, y_train_pred))
+    r2_test = float(r2_score(y_test, y_test_pred))
 
-    r2_train = r2_score(y_train, y_train_pred)
-    r2_test = r2_score(y_test, y_test_pred)
+    print(f"Coeficiente de correlação de Pearson (Treino): {corr_train:.4f}")
+    print(f"R² (Treino): {r2_train:.4f}")
+    print(f"Coeficiente de correlação de Pearson (Teste): {corr_test:.4f}")
+    print(f"R² (Teste): {r2_test:.4f}")
 
     residuos_treino = y_train - y_train_pred
 
@@ -89,6 +91,5 @@ def plot_regression_diagnostics(y_train, y_train_pred, y_test, y_test_pred, titl
     plt.tight_layout(rect=[0, 0, 1, 0.96])
     plt.show()
 
-    
-    plt.tight_layout()
-    plt.show()
+
+    return corr_train, corr_test, r2_train, r2_test
